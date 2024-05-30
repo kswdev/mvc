@@ -1,8 +1,7 @@
-package org.example.common.calculator;
+package org.example.common.calculatorExample.normal;
 
-
-import org.example.common.calculator.interface_version.*;
-import org.example.common.calculator.interface_version.number.PositiveNumber;
+import org.example.common.calculatorExample.normal.interface_version.*;
+import org.example.common.calculatorExample.normal.interface_version.number.PositiveNumber;
 
 import java.util.List;
 

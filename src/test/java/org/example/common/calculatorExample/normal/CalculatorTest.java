@@ -1,7 +1,7 @@
-package org.example.common;
+package org.example.common.calculatorExample.normal;
 
-import org.example.common.calculator.Calculator;
-import org.example.common.calculator.interface_version.number.PositiveNumber;
+import org.example.common.calculatorExample.normal.Calculator;
+import org.example.common.calculatorExample.normal.interface_version.number.PositiveNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

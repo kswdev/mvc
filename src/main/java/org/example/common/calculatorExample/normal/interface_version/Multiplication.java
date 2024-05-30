@@ -1,6 +1,6 @@
-package org.example.common.calculator.interface_version;
+package org.example.common.calculatorExample.normal.interface_version;
 
-import org.example.common.calculator.interface_version.number.PositiveNumber;
+import org.example.common.calculatorExample.normal.interface_version.number.PositiveNumber;
 
 public class Multiplication implements ArithmeticOperator{
     @Override

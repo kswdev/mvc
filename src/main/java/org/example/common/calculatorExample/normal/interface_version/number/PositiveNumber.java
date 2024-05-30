@@ -1,4 +1,4 @@
-package org.example.common.calculator.interface_version.number;
+package org.example.common.calculatorExample.normal.interface_version.number;
 
 public record PositiveNumber(int number) {
 
