@@ -1,4 +1,4 @@
-package org.example.common.calculator;
+package org.example.common.calculator.enum_version;
 
 import java.util.Arrays;
 

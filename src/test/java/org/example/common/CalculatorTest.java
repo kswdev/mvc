@@ -1,6 +1,7 @@
 package org.example.common;
 
 import org.example.common.calculator.Calculator;
+import org.example.common.calculator.interface_version.number.PositiveNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,7 +20,7 @@ class CalculatorTest {
     @ParameterizedTest
     @MethodSource("formulaAndResult")
     void additionTest(int operand1, String operator, int operand2, int result) {
-        int calculatedResult = Calculator.calculate(operand1, operator, operand2);
+        int calculatedResult = Calculator.calculate(new PositiveNumber(operand1), operator, new PositiveNumber(operand2));
 
         assertThat(result).isEqualTo(calculatedResult);
     }
