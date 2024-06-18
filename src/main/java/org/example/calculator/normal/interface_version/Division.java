@@ -5,7 +5,6 @@ import org.example.calculator.normal.interface_version.number.PositiveNumber;
 public class Division implements ArithmeticOperator{
     @Override
     public boolean support(String operator) {
-        System.out.println(" : " + operator);
         return "/".equals(operator);
     }
 

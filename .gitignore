@@ -1,6 +1,6 @@
 # Project exclude paths
 /.gradle/
-/webapps/WEB-INF/classes/
+/webapp/WEB-INF/classes/
 .idea
 /gradle/wrapper/gradle-wrapper.jar
 /gradle/wrapper/gradle-wrapper.properties
