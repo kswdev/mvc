@@ -2,7 +2,7 @@ package org.example.jdbc.domain.user.repository;
 
 import org.example.customer.domain.User;
 import org.example.jdbc.domain.util.ConnectionManager;
-import org.example.jdbc.domain.user.repository.UserDao;
+import org.example.jdbc.domain.util.JdbcTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
