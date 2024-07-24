@@ -1,21 +1,13 @@
 package org.example;
 
 
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.startup.Tomcat;
-import org.example.calculator.normal.Calculator;
-import org.example.calculator.normal.interface_version.number.PositiveNumber;
-import org.example.customer.domain.request.HttpRequest;
-import org.example.customer.domain.request.QueryStrings;
-import org.example.customer.domain.response.HttpResponse;
-import org.example.customer.handler.ClientRequestHandler;
+import org.example.java_basic.customer.handler.ClientRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
