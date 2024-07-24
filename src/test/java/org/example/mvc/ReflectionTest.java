@@ -1,14 +1,15 @@
 package org.example.mvc;
 
-import org.example.mvc.controller.HomeController;
 import org.example.mvc.library.annotation.Controller;
+import org.example.mvc.library.annotation.Service;
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.spi.LoggerFactoryBinder;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,11 +21,17 @@ public class ReflectionTest {
 
     @Test
     void controllerScan() {
+        Set<Class<?>> beans = getTypesAnnotatedWith(List.of(Controller.class, Service.class));
+
+        log.debug("beans [{}]", beans);
+    }
+
+    private static Set<Class<?>> getTypesAnnotatedWith(List<Class<? extends Annotation>> annotations) {
         Reflections reflections = new Reflections("org.example.mvc");
 
         Set<Class<?>> beans = new HashSet<>();
-        beans.addAll(reflections.getTypesAnnotatedWith(Controller.class));
+        annotations.forEach(annotation -> beans.addAll(reflections.getTypesAnnotatedWith(annotation)));
 
-        log.debug("beans [{}]", beans);
+        return beans;
     }
 }
