@@ -10,6 +10,6 @@ public class Multiplication implements ArithmeticOperator{
 
     @Override
     public int calculate(PositiveNumber operand1, PositiveNumber operand2) {
-        return operand1.number() * operand2.number();
+        return operand1.getNumber() * operand2.getNumber();
     }
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -13,7 +14,7 @@ import java.io.PrintWriter;
  * GenericServlet을 상속받는다면
  * destroy, getServletConfig, getServletInfo 등 메소드는 삭제해도 된다
  */
-//@WebServlet("/calculate")
+@WebServlet("/calculate")
 public class CalculatorServlet implements Servlet {
 
     private static final Logger log = LoggerFactory.getLogger(CalculatorServlet.class);

@@ -26,17 +26,17 @@ public class Course {
     }
 
     private double getGradeToNumber() {
-        return switch (this.grade) {
-            case "A+" -> 4.5;
-            case "A"  -> 4.0;
-            case "B+" -> 3.5;
-            case "B"  -> 3.0;
-            case "C+" -> 2.5;
-            case "C"  -> 2.0;
-            case "D+" -> 1.5;
-            case "D"  -> 1.0;
-            default -> 0;
-        };
+        switch (this.grade) {
+            case "A+" : return 4.5;
+            case "A"  : return 4.0;
+            case "B+" : return 3.5;
+            case "B"  : return 3.0;
+            case "C+" : return 2.5;
+            case "C"  : return 2.0;
+            case "D+" : return 1.5;
+            case "D"  : return 1.0;
+            default : return 0;
+        }
     }
 
     public double multipliedCreditAndGrade() {
