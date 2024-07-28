@@ -1,7 +1,9 @@
 package org.example.mvc.library.servlet;
 
 import org.example.mvc.controller.Controller;
+import org.example.mvc.library.handler.HandlerKey;
 import org.example.mvc.library.handler.RequestMappingHandlerMapping;
+import org.example.mvc.library.request.RequestMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +31,7 @@ public class DispatcherServlet extends HttpServlet {
         log.info("[requestURL] : [{}]", req.getRequestURI());
 
         try {
-            Controller handler = handlerMapping.findHandler(req.getRequestURI());
+            Controller handler = handlerMapping.findHandler(new HandlerKey(RequestMethod.valueOf(req.getMethod()), req.getRequestURI()));
             String viewName = handler.handleRequest(req, res);
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/"+viewName);
