@@ -1,4 +1,4 @@
-package org.example.mvc.library.handler;
+package org.example.mvc.library.handler.mapping;
 
 import org.example.mvc.library.request.RequestMethod;
 

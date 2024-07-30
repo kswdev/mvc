@@ -16,7 +16,7 @@ public class RedirectView implements View{
     }
 
     @Override
-    public void rander(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.sendRedirect(name.substring(DEFAULT_REDIRECT_PREFIX.length()));
     }

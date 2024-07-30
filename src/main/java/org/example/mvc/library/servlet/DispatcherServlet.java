@@ -1,11 +1,13 @@
 package org.example.mvc.library.servlet;
 
-import org.example.mvc.controller.Controller;
 import org.example.mvc.library.ModelAndView;
-import org.example.mvc.library.handler.HandlerAdapter;
-import org.example.mvc.library.handler.HandlerKey;
-import org.example.mvc.library.handler.RequestMappingHandlerMapping;
-import org.example.mvc.library.handler.SimpleControllerHandlerAdapter;
+import org.example.mvc.library.handler.adpater.AnnotationHandlerAdapter;
+import org.example.mvc.library.handler.adpater.HandlerAdapter;
+import org.example.mvc.library.handler.adpater.SimpleControllerHandlerAdapter;
+import org.example.mvc.library.handler.mapping.AnnotationHandlerMapping;
+import org.example.mvc.library.handler.mapping.HandlerKey;
+import org.example.mvc.library.handler.mapping.HandlerMapping;
+import org.example.mvc.library.handler.mapping.RequestMappingHandlerMapping;
 import org.example.mvc.library.request.RequestMethod;
 import org.example.mvc.view.View;
 import org.example.mvc.view.resolver.JspViewResolver;
@@ -19,44 +21,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 @WebServlet("/")
 public class DispatcherServlet extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(DispatcherServlet.class);
-    private RequestMappingHandlerMapping handlerMapping;
+    private List<HandlerMapping> handlerMappings;
     private List<ViewResolver> viewResolvers;
     private List<HandlerAdapter> handlerAdapters;
 
     @Override
     public void init() {
-         handlerMapping = new RequestMappingHandlerMapping();
-         handlerMapping.init();
+        RequestMappingHandlerMapping rmhm = new RequestMappingHandlerMapping();
+        AnnotationHandlerMapping ahm = new AnnotationHandlerMapping();
+        rmhm.init();
+        ahm.init();
 
-         handlerAdapters   = Collections.singletonList(new SimpleControllerHandlerAdapter());
-         viewResolvers   = Collections.singletonList(new JspViewResolver());
+
+        this.handlerMappings = List.of(rmhm, ahm);
+        handlerAdapters = List.of(new SimpleControllerHandlerAdapter(), new AnnotationHandlerAdapter());
+        viewResolvers   = Collections.singletonList(new JspViewResolver());
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) {
         log.info("[DispatcherServlet] service started.");
-        log.info("[requestURL] : [{}]", req.getRequestURI());
+
+        String requestURI = req.getRequestURI();
+        RequestMethod method = RequestMethod.valueOf(req.getMethod());
+
+        log.info("[requestURL] : [{}]", requestURI);
 
         try {
-            Controller handler = handlerMapping.findHandler(new HandlerKey(RequestMethod.valueOf(req.getMethod()), req.getRequestURI()));
+            Object handler = handlerMappings.stream()
+                    .filter(ha -> ha.findHandler(new HandlerKey(method, requestURI)) != null)
+                    .map(ha -> ha.findHandler(new HandlerKey(method, requestURI)))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("No handler for [" + requestURI + "]"));
 
             HandlerAdapter handlerAdapter = handlerAdapters.stream()
                     .filter(adapter -> adapter.support(handler))
                     .findFirst()
-                    .orElseThrow(() -> new ServletException("No adapter for [" + handler + "]"));
+                    .orElseThrow(() -> new ServletException("No adapter for [" + method+ ", " + handler + "]"));
 
             ModelAndView modelAndView = handlerAdapter.handle(req, res, handler);
 
             for (ViewResolver resolver : viewResolvers) {
                 View view = resolver.resolveView(modelAndView.getViewName());
-                view.rander(modelAndView.getModel(), req, res);
+                view.render(modelAndView.getModel(), req, res);
             }
 
         } catch (Exception e) {

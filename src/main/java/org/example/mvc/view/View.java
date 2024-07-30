@@ -7,5 +7,5 @@ import java.io.IOException;
 import java.util.Map;
 
 public interface View {
-    void rander(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }
